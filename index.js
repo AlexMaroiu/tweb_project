@@ -1,13 +1,16 @@
 const express = require('express');
 const session = require('express-session');
+const cookieParser = require("cookie-parser");
+const path = require("path");
 const swaggerJSDOC = require('swagger-jsdoc');
 const swaggerUI = require('swagger-ui-express');
 const passport = require('passport');
+const setupLoginRoute = require("./login");
+const setupAddRoute = require("./add");
 require('./auth');
 
 const app = express();
 const PORT = 8080;
-
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -17,18 +20,22 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
-app.use(session({ secret: 'cats', resave: false, saveUninitialized: true }));
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+app.use(session({ secret: 'cybersec', resave: false, saveUninitialized: true }));
 app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
-
-
+app.use(cookieParser());
 
 const options = {
     definition:{
         openapi : '3.0.0',
         info : {
-            title : 'Node JS API project for oAuth and mongoDB',
+            title : 'Node JS API project for oAuth and JWT',
             version: '1.0.0'
         },
         servers: [
@@ -41,20 +48,16 @@ const options = {
 const swaggerSpec = swaggerJSDOC(options);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 
-
-app.listen(
-    PORT,
-    () => console.log(`its alive on http://localhost:${PORT}`)
-);
-
 function isLoggedIn(req, res, next) {
     req.user ? next() : res.sendStatus(401);
 }
 
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "./index.html"));
+});
 
-
-app.get('/', (req, res) => {
-    res.send('<a href="/auth/google">Authenticate with Google</a>');
+app.get("/welcome", (req, res) => {
+  res.sendFile(path.join(__dirname, "./welcome.html"));
 });
 
 app.get('/auth/google',
@@ -75,6 +78,14 @@ app.get('/protected', isLoggedIn, (req, res) => {
 app.get('/auth/google/failure', (req, res) => {
     res.send('Failed to authenticate..');
 });
+
+setupLoginRoute(app);
+setupAddRoute(app);
+
+app.listen(
+  PORT,
+  () => console.log(`its alive on http://localhost:${PORT}`)
+);
 
 /**
  * @swagger
