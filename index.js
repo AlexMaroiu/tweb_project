@@ -1,10 +1,9 @@
 const express = require('express');
+const session = require('express-session');
 const swaggerJSDOC = require('swagger-jsdoc');
 const swaggerUI = require('swagger-ui-express');
-// const session = require('express-session');
 const passport = require('passport');
 require('./auth');
-
 
 const app = express();
 const PORT = 8080;
@@ -18,7 +17,12 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
+app.use(session({ secret: 'cats', resave: false, saveUninitialized: true }));
 app.use(express.json());
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 
 const options = {
     definition:{
