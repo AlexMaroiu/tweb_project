@@ -4,15 +4,223 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+
+    <style>
+      /* CSS reset */
+      html,
+      body,
+      div,
+      span,
+      applet,
+      object,
+      iframe,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      blockquote,
+      pre,
+      a,
+      abbr,
+      acronym,
+      address,
+      big,
+      cite,
+      code,
+      del,
+      dfn,
+      em,
+      img,
+      ins,
+      kbd,
+      q,
+      s,
+      samp,
+      small,
+      strike,
+      strong,
+      sub,
+      sup,
+      tt,
+      var,
+      b,
+      u,
+      i,
+      center,
+      dl,
+      dt,
+      dd,
+      ol,
+      ul,
+      li,
+      fieldset,
+      form,
+      label,
+      legend,
+      table,
+      caption,
+      tbody,
+      tfoot,
+      thead,
+      tr,
+      th,
+      td,
+      article,
+      aside,
+      canvas,
+      details,
+      embed,
+      figure,
+      figcaption,
+      footer,
+      header,
+      hgroup,
+      menu,
+      nav,
+      output,
+      ruby,
+      section,
+      summary,
+      time,
+      mark,
+      audio,
+      video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+      }
+      /* HTML5 display-role reset for older browsers */
+      article,
+      aside,
+      details,
+      figcaption,
+      figure,
+      footer,
+      header,
+      hgroup,
+      menu,
+      nav,
+      section {
+        display: block;
+      }
+      body {
+        line-height: 1;
+      }
+      ol,
+      ul {
+        list-style: none;
+      }
+      blockquote,
+      q {
+        quotes: none;
+      }
+      blockquote:before,
+      blockquote:after,
+      q:before,
+      q:after {
+        content: "";
+        content: none;
+      }
+      table {
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
+      /* Custom CSS */
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #49a19a;
+      }
+      .container {
+        padding: 1rem;
+        /* From https://css.glass */
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+      .container__flex-column {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .container__flex-row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container form {
+        margin-bottom: 2rem;
+      }
+      .container form input {
+        padding: 0.5rem;
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 15px;
+      }
+      a,
+      a:visited {
+        color: #494949;
+        text-decoration: none;
+      }
+      .custom-link {
+        padding: 0.5rem;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transition: 0.5s all;
+      }
+      .custom-link:hover {
+        transform: translateY(-0.2rem);
+        cursor: pointer;
+      }
+    </style>
+
+    <title>TWSI Test Project</title>
   </head>
   <body>
-    <form action="/login" method="post">
-      <input name="username" placeholder="username" />
-      <input name="password" placeholder="password" />
-      <button type="submit">Login</button>
-    </form>
-    <a href="/auth/google">Authenticate with Google</a>
-    <a href="/auth/github">Authenticate with Github</a>
+    <div class="container">
+      <form
+        class="container__flex-column"
+        style="gap: 1rem; margin-top: 1rem"
+        action="/login"
+        method="post"
+      >
+        <input name="username" placeholder="username" />
+        <input name="password" placeholder="password" />
+        <button class="custom-link" type="submit">Login</button>
+      </form>
+      <div
+        style="
+          width: 75%;
+          height: 1px;
+          background-color: #494949;
+          margin-left: auto;
+          margin-right: auto;
+          margin-bottom: 1rem;
+        "
+      ></div>
+      <div class="container__flex-column" style="gap: 1rem">
+        <a class="custom-link google-colors" href="/auth/google"
+          >Authenticate with Google</a
+        >
+        <a class="custom-link github-colors" href="/auth/github"
+          >Authenticate with Github</a
+        >
+      </div>
+    </div>
   </body>
 </html>
